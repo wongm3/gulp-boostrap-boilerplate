@@ -4,6 +4,8 @@
 
 // General
 var gulp = require('gulp');
+var del = require('del');
+var runSequence = require('gulp-run-sequence');
 var bower = require('gulp-bower');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
@@ -81,22 +83,37 @@ gulp.task('build:styles', ['build:fonts'], function () {
         .pipe(gulp.dest(paths.styles.output));
 });
 
+// Bootstrap fonts
 gulp.task('build:fonts', function () {
     return gulp.src(paths.fonts.input)
         .pipe(gulp.dest(paths.fonts.output));
 });
 
-gulp.task('styles', ['css', 'fonts']);
-
-gulp.task('styles:watch', ['css', 'fonts'], function () {
-    var watchFiles = [
-        'css/*.scss'
-    ];
-
-    gulp.watch(watchFiles, ['css', 'fonts']);
+// Remove pre-existing content from output and test folders
+gulp.task('clean:public', function () {
+    del.sync([
+        paths.styles.output,
+        paths.fonts.output
+    ]);
 });
 
 gulp.task('bower', function () {
     return bower()
         .pipe(gulp.dest(paths.bower));
+});
+
+
+/**
+ * Task Runners
+ */
+
+// Compile files
+gulp.task('compile', [
+    'clean:public',
+    'build:styles'
+]);
+
+// Compile files (default)
+gulp.task('default', function () {
+    runSequence('bower', 'compile');
 });
