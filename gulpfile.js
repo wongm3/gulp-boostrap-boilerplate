@@ -41,12 +41,14 @@ var banner = {
     ' * <%= package.name %> v<%= package.version %>: <%= package.description %>\n' +
     ' * (c) ' + new Date().getFullYear() + ' <%= package.author.name %>\n' +
     ' * MIT License\n' +
+    ' * <%= package.repository.url %>\n' +
     ' */\n\n',
     min :
     '/*!' +
     ' <%= package.name %> v<%= package.version %>' +
     ' | (c) ' + new Date().getFullYear() + ' <%= package.author.name %>' +
     ' | MIT License' +
+    ' | <%= package.repository.url %>' +
     ' */\n'
 };
 
