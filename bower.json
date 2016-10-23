@@ -1,0 +1,6 @@
+{
+    "name": "gulp-bootstrap-boilerplate",
+    "dependencies": {
+        "bootstrap-sass": "^3.3.7"
+    }
+}
